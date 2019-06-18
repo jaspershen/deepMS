@@ -11,11 +11,9 @@ trans <- function(data,#mzXML format data
   mz2 <- mz.range[2]
   a <- seq(mz1, mz2, length.out = mz.pixel+1)
   b <- sort(c(a[1],a[length(a)],rep(a[-c(1,length(a))],2)))
-  bias <- c(0,rep(c(-0.000001,0.000001),mz.pixel-1),0)
-  c <- b + bias
   ##c is the rule of mz pixel
   c <- matrix(b, ncol = 2, byrow = TRUE)
-  remove(list=c("a","b","bias"))
+  remove(list=c("a","b"))
   ###new data table for sample
   data.new <- matrix(0, ncol = length(data2), nrow = mz.pixel)
 

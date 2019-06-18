@@ -19,8 +19,8 @@ trans <- function(data,#mzXML format data
 
   #-----------------------------------------------------------------------------
   for (i in 1:length(data2)) {
-    if(any(i/100==c(1:1000))){
-      cat(i);cat(" ")
+    if(i %% 100 == 0){
+      cat(paste(i, ""))
     }
 
   temp.data <- data2[[i]]

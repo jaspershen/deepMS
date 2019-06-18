@@ -14,7 +14,7 @@ trans <- function(data, mz.range, mz.pixel, rt.pixel) {
   # Build the rule of segment
   mz1 <- mz.range[1]
   mz2 <- mz.range[2]
-  a <- seq(mz1, mz2, length.out = mz.pixel + 1)
+  a <- seq.int(from = mz1, to = mz2, length.out = mz.pixel + 1)
   b <- a[1]
   for (i in 2:(length(a) - 1)) {
     b = c(b, a[i], a[i])

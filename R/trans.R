@@ -10,7 +10,11 @@ trans <- function(data,#mzXML format data
   mz1 <- mz.range[1]
   mz2 <- mz.range[2]
   a <- seq(mz1, mz2, length.out = mz.pixel+1)
-  b <- sort(c(a[1],a[length(a)],rep(a[-c(1,length(a))],2)))
+  b <- a[1]
+  for (i in 2:(length(a)-1)) {
+    b = c(b, a[i], a[i])
+  }
+  b = c(b, a[length(a)])
   ##c is the rule of mz pixel
   c <- matrix(b, ncol = 2, byrow = TRUE)
   remove(list=c("a","b"))

@@ -1,4 +1,4 @@
-map <- function(data, mz.range, mz.pixel, rt.pixel) {
+map <- function(data) {
   #
   # Args:
   #   data: mzXML format data that will be displayed as heat map
@@ -14,18 +14,32 @@ map <- function(data, mz.range, mz.pixel, rt.pixel) {
       numrows = max(numrows, data2[[i]][j, 1])
     }
   }
-  
-  cat(paste("numrows is", numrows))
+  # cat(paste("numrows is", numrows))
   plot <- matrix(0, ncol = length(data2)+1, nrow = numrows+1)
   for(i in 1:length(data2)) {
     mat <- data2[[i]]
     for(j in 1:dim(mat)[1]) {
-      plot[mat[j, 1], i] <- mat[j, 2] ** (1/10)
+      plot[mat[j, 1], i] <- mat[j, 2] ^ (1/12)
       # Or use this
       #plot[mat[j, 1], i] <- log10(mat[j, 2])
     }
   }
-  pheatmap::pheatmap(plot, cluster_cols = FALSE, cluster_rows = FALSE)
   return(plot)
 }
 
+createPNG <- function(first, last) {
+  for(i in first:last) {
+    input = paste(i, ".mzXML", sep = "")
+    png(filename = paste(i, ".png", sep = ""), width = 256, height = 256)
+    pheatmap::pheatmap(map(input), cluster_cols = FALSE, cluster_rows = FALSE, legend = FALSE)
+    dev.off()
+  }
+}
+
+convert <- function(wd = "c:/New Folder",
+                    first = 1,
+                    last = 10) {
+  
+  setwd(wd)
+  createPNG(first, last)
+}
